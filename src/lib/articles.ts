@@ -6,7 +6,6 @@ import { remark } from "remark";
 import html from "remark-html";
 
 import type { ArticleItem } from "@/types";
-import { fstat } from "fs";
 
 const articlesDirectory = path.join(process.cwd(), "src/articles");
 
