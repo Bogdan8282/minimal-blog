@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/16/solid";
 import { getArticleData } from "@/lib/articles";
 
-interface PageProps {
+type PageProps = {
   params: Promise<{ slug: string }>;
 }
 

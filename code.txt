@@ -1,3 +1,44 @@
+app/[category]/page.tsx:
+import Link from "next/link";
+import { getCategorisedArticles } from "@/lib/articles";
+import { notFound } from "next/navigation";
+
+interface PageProps {
+  params: Promise<{ category: string }>;
+}
+
+const Article = async ({ params }: PageProps) => {
+  const { category } = await params;
+
+  const articles = await getCategorisedArticles();
+
+  const categoryArticles = await articles[category];
+
+  if (!articles) return notFound();
+
+  return (
+    <section className="mx-auto w-11/12 md:w-1/2 mt-20 flex flex-col gap-16 mb-20">
+      <header className="font-heading font-light text-6xl text-neutral-900 text-center">
+        <h1>minimal blog</h1>
+      </header>
+      <section className="md:grid md:grid-cols-2 flex flex-col gap-10">
+        {categoryArticles.map((article, id) => (
+          <Link
+            href={`/${article.id}`}
+            key={id}
+            className="text-neutral-900 hover:text-amber-700 transition duration-150"
+          >
+            {article.title}
+          </Link>
+        ))}
+      </section>
+    </section>
+  );
+};
+
+export default Article;
+
+lib/articles.ts:
 import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
@@ -77,6 +118,10 @@ export const getArticleData = async (id: string) => {
   };
 };
 
-export const normalizeCategory = (slug: string): string => {
-  return slug.replace(/-/g, " ").toLowerCase();
-};
+types/index.ts:
+export type ArticleItem = {
+    id: string,
+    title: string,
+    date: string,
+    category: string
+}

@@ -1,6 +1,6 @@
 ---
 title: "How to write clean code"
-category: "software engineering"
+category: "software-engineering"
 date: "01-01-2023"
 ---
 
